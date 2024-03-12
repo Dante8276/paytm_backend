@@ -5,8 +5,9 @@ export interface IEmailData extends Document {
   from_mail: string;
   to_mail: string;
   date: string;
-  email_data: string;
+  email_s3_key: string;
   otp: string;
+  is_already_used: boolean;
 }
 
 const EmailDataSchema = new mongoose.Schema({
@@ -14,8 +15,9 @@ const EmailDataSchema = new mongoose.Schema({
   from_mail: { type: String, required: true },
   to_mail: { type: String, required: true },
   date: { type: String, required: true },
-  email_data: { type: String, required: true },
+  email_s3_key: { type: String, required: true },
   otp: { type: String, required: true },
+  is_already_used: { type: Boolean, required: true }
 });
 
 export const EmailData = mongoose.model<IEmailData>('EmailData', EmailDataSchema, 'email_data');

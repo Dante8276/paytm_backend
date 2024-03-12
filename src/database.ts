@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = 'mongodb://13.212.210.24:27017/paytmdb';
+// const MONGODB_URI = 'mongodb://127.0.0.1:27017/paytmdb';
+
+// since this repo is running in a docker container, the host name should be the name of the service in the docker-compose file
+// const MONGODB_URI = 'mongodb://backend:27017/paytmdb';
+// const MONGODB_URI = 'mongodb://mongoadmin:secret@mongodb:27017/paytmdb?authSource=admin';
+const MONGODB_URI = 'mongodb://mongoadmin:secret@mongodb:27017/paytmdb?authSource=admin';
 
 export const connectToDatabase = async () => {
   try {

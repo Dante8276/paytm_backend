@@ -47,7 +47,7 @@ router.get('/to_mail/:to_mail', async (req: Request, res: Response) => {
   try {
     console.log('to_mail:', req.params.to_mail);
     const emailData
-        = await EmailData.findOne({ to_mail: req.params.to_mail }).sort({ date: -1 });
+        = await EmailData.findOne({ to_mail: req.params.to_mail, is_already_used: false }).sort({ date: -1 });
     if (!emailData) {
         return res.status(404).json({ error: 'Email data not found' });
         }
