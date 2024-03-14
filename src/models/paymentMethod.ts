@@ -10,6 +10,7 @@ export interface IPaymentMethod extends Document {
   method_info_column_2?: string;
   method_info_column_3?: string;
   name: string;
+  priority: number;
 }
 
 const PaymentMethodSchema = new mongoose.Schema({
@@ -22,6 +23,7 @@ const PaymentMethodSchema = new mongoose.Schema({
   method_info_column_2: { type: String },
   method_info_column_3: { type: String },
   name: { type: String, required: true, unique: true },
+  priority: { type: Number, required: true },
 });
 
 export const PaymentMethod = mongoose.model<IPaymentMethod>('PaymentMethod', PaymentMethodSchema, 'payment_method');

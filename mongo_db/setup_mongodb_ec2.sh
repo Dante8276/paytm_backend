@@ -79,7 +79,7 @@ db.createCollection("payment_method", {
   validator: {
     \$jsonSchema: {
       bsonType: "object",
-      required: ["method_type", "max_transactions_count", "single_transaction_limit", "total_amount_limit", "is_available", "method_info_column_1", "name"],
+      required: ["method_type", "max_transactions_count", "single_transaction_limit", "total_amount_limit", "is_available", "method_info_column_1", "name", "priority"],
       properties: {
         method_type: {
           bsonType: "string",
@@ -108,6 +108,9 @@ db.createCollection("payment_method", {
         name: {
           bsonType: "string",
         },
+        priority: {
+          bsonType: "number",
+        },
       },
     },
   },
@@ -123,7 +126,8 @@ db.payment_method.insertOne({
   is_available: true,
   method_info_column_1: "yash.tiwari3565@okhdfcbank",
   method_info_column_2: "yash.tiwari3565@okaxis",
-  name: "Yash Tiwari UPI"
+  name: "Yash Tiwari UPI",
+  priority: 5
 });
 
 
@@ -169,6 +173,31 @@ db.createCollection("transactions", {
     },
   },
 });
+
+db.createCollection("insider_data", {
+  validator: {
+    \$jsonSchema: {
+      bsonType: "object",
+      required: ["event_name", "event_metadata", "created_at"],
+      properties: {
+        event_name: {
+          bsonType: "string",
+        },
+        event_metadata: {
+          bsonType: "object",
+        },
+        created_at: {
+          bsonType: "date",
+        },
+        items: {
+          bsonType: "object",
+        },
+      },
+    },
+  },
+});
+
+db.insider_data.createIndex({ event_name: 1 }, { unique: true });
 
 db.email_data.insertOne({
   id: new Date(),

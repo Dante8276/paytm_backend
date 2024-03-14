@@ -88,7 +88,7 @@ router.get('/:amount/:method_type', async (req: Request, res: Response) => {
           },
         },
         {
-          sort: { max_transactions_count: -1 },
+          sort: { max_transactions_count: 1, priority: -1 },
           new: true,
         }
       );
