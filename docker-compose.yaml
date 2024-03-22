@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "80:3000"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
       - MONGODB_URI=mongodb://mongoadmin:secret@mongodb:27017/paytmdb?authSource=admin

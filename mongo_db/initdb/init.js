@@ -36,7 +36,7 @@ db.createCollection("user_data", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["name", "address_line_1", "address_line_2", "n_times_used", "pincode"],
+      required: ["name", "address_line_1", "address_line_2", "n_times_used", "pincode", "is_delivery", "phone_number", "country_code"],
       properties: {
         name: {
           bsonType: "string",
@@ -54,6 +54,15 @@ db.createCollection("user_data", {
           bsonType: "number",
         },
         pincode: {
+          bsonType: "string",
+        },
+        is_delivery: {
+          bsonType: "bool",
+        },
+        phone_number: {
+          bsonType: "string",
+        },
+        country_code: {
           bsonType: "string",
         },
       },
@@ -203,6 +212,9 @@ db.user_data.insertOne({
   address_line_1: "Ground floor, room 001, Diwan Alcove Manor",
   address_line_2: "7, Zen House, 7/1, 1 Langford Gardens",
   n_times_used: 0,
-  pincode: "560025"
+  pincode: "560025",
+  phone_number: "6388182964",
+  country_code: "91",
+  is_delivery: true
 });
 
