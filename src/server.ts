@@ -8,6 +8,7 @@ import paymentMethodRoutes from './routes/paymentMethodRoutes';
 import runnerRoutes from './routes/runnerRoutes';
 import transactionRoutes from './routes/transactionRoutes';
 import insiderDataRoutes from './routes/insiderDataRoutes';
+import scriptRoutes from './routes/scriptRoutes';
 
 const app = express();
 const port = 3000;
@@ -20,6 +21,7 @@ app.use('/api/paymentMethod', paymentMethodRoutes);
 app.use('/api/runner', runnerRoutes);
 app.use('/api/transaction', transactionRoutes);
 app.use('/api/get_insider', insiderDataRoutes);
+app.use('/api/scripts', scriptRoutes);
 
 app.listen(port, async () => {
   await connectToDatabase();

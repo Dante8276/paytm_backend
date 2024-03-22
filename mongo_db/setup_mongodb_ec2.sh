@@ -220,6 +220,40 @@ db.createCollection("insider_data", {
 
 db.insider_data.createIndex({ event_name: 1 }, { unique: true });
 
+db.createCollection("scripts", {
+  validator: {
+    \$jsonSchema: {
+      bsonType: "object",
+      required: ["page", "matcher", "handler", "handler_params", "hash"],
+      properties: {
+        page: {
+          bsonType: "string",
+          description: "The name or identifier of the page",
+        },
+        matcher: {
+          bsonType: "string",
+          description: "The matcher query as a string",
+        },
+        handler: {
+          bsonType: "string",
+          description: "The handler function as a string",
+        },
+        handler_params: {
+          bsonType: "array",
+          description: "The handler function params as an array of strings",
+          items: {
+            bsonType: "string"
+          }
+        },
+        hash: {
+          bsonType: "string",
+          description: "The unique hash generated from matcher and handler",
+        },
+      },
+    },
+  },
+});
+
 db.email_data.insertOne({
   id: new Date(),
   from_mail: "example@example.com",

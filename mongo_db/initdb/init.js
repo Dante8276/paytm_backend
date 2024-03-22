@@ -118,14 +118,26 @@ db.payment_method.createIndex({ name: 1 }, { unique: true });
 
 db.payment_method.insertOne({
   method_type: "UPI",
-  max_transactions_count: 10,
-  single_transaction_limit: 1000000,
-  total_amount_limit: 100000000,
+  max_transactions_count: 100,
+  single_transaction_limit: 100000,
+  total_amount_limit: 100000,
   is_available: true,
-  method_info_column_1: "yash.tiwari3565@okhdfcbank",
-  method_info_column_2: "yash.tiwari3565@okaxis",
-  name: "Yash Tiwari UPI",
-  priority: 5
+  method_info_column_1: "9346001616@ybl",
+  method_info_column_2: "9346001616@ybl",
+  name: "Bhanu UPI 3",
+  priority: 7
+});
+
+db.payment_method.insertOne({
+  method_type: "UPI",
+  max_transactions_count: 100,
+  single_transaction_limit: 100000,
+  total_amount_limit: 100000,
+  is_available: true,
+  method_info_column_1: "yash.tiwari3565@okhdfc",
+  method_info_column_2: "yash.tiwari3565@okhdfc",
+  name: "Yash UPI",
+  priority: 10
 });
 
 
@@ -197,6 +209,40 @@ db.createCollection("insider_data", {
 
 db.insider_data.createIndex({ event_name: 1 }, { unique: true });
 
+db.createCollection("scripts", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["page", "matcher", "handler", "handler_params", "hash"],
+      properties: {
+        page: {
+          bsonType: "string",
+          description: "The name or identifier of the page",
+        },
+        matcher: {
+          bsonType: "string",
+          description: "The matcher query as a string",
+        },
+        handler: {
+          bsonType: "string",
+          description: "The handler function as a string",
+        },
+        handler_params: {
+          bsonType: "array",
+          description: "The handler function params as an array of strings",
+          items: {
+            bsonType: "string"
+          }
+        },
+        hash: {
+          bsonType: "string",
+          description: "The unique hash generated from matcher and handler",
+        },
+      },
+    },
+  },
+});
+
 db.email_data.insertOne({
   id: new Date(),
   from_mail: "example@example.com",
@@ -209,8 +255,8 @@ db.email_data.insertOne({
 
 db.user_data.insertOne({
   name: "Yash Tiwari",
-  address_line_1: "Ground floor, room 001, Diwan Alcove Manor",
-  address_line_2: "7, Zen House, 7/1, 1 Langford Gardens",
+  address_line_1: "Ground floor, room 001",
+  address_line_2: "Diwan Alcove Manor, Langford Rd",
   n_times_used: 0,
   pincode: "560025",
   phone_number: "6388182964",
