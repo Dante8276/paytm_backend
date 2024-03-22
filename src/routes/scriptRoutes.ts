@@ -47,6 +47,7 @@ router.get('/seed', async (req: Request, res: Response) => {
             buyNowButton.click();
           }
         }`,
+        handler_params: [],
       },
     //   {
     //     page: 'seatmap',

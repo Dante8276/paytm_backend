@@ -17,13 +17,23 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const database_1 = require("./database");
 const emailDataRoutes_1 = __importDefault(require("./routes/emailDataRoutes"));
+const userDataRoutes_1 = __importDefault(require("./routes/userDataRoutes"));
+const paymentMethodRoutes_1 = __importDefault(require("./routes/paymentMethodRoutes"));
+const runnerRoutes_1 = __importDefault(require("./routes/runnerRoutes"));
+const transactionRoutes_1 = __importDefault(require("./routes/transactionRoutes"));
+const insiderDataRoutes_1 = __importDefault(require("./routes/insiderDataRoutes"));
+const scriptRoutes_1 = __importDefault(require("./routes/scriptRoutes"));
 const app = (0, express_1.default)();
 const port = 3000;
-// Enable CORS for all routes
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.json());
 app.use('/api/emailData', emailDataRoutes_1.default);
-// Start the server
+app.use('/api/userData', userDataRoutes_1.default);
+app.use('/api/paymentMethod', paymentMethodRoutes_1.default);
+app.use('/api/runner', runnerRoutes_1.default);
+app.use('/api/transaction', transactionRoutes_1.default);
+app.use('/api/get_insider', insiderDataRoutes_1.default);
+app.use('/api/scripts', scriptRoutes_1.default);
 app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, database_1.connectToDatabase)();
     console.log(`Server is running on port ${port}`);

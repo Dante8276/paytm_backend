@@ -10,7 +10,8 @@ const EmailDataSchema = new mongoose_1.default.Schema({
     from_mail: { type: String, required: true },
     to_mail: { type: String, required: true },
     date: { type: String, required: true },
-    email_data: { type: String, required: true },
+    email_s3_key: { type: String, required: true },
     otp: { type: String, required: true },
+    is_already_used: { type: Boolean, required: true }
 });
 exports.EmailData = mongoose_1.default.model('EmailData', EmailDataSchema, 'email_data');
