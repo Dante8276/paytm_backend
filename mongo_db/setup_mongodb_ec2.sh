@@ -145,8 +145,8 @@ db.payment_method.insertOne({
   single_transaction_limit: 100000,
   total_amount_limit: 100000,
   is_available: true,
-  method_info_column_1: "yash.tiwari3565@okhdfc",
-  method_info_column_2: "yash.tiwari3565@okhdfc",
+  method_info_column_1: "yash.tiwari3565@okhdfcbank",
+  method_info_column_2: "yash.tiwari3565@okhdfcbank",
   name: "Yash UPI",
   priority: 10
 });
