@@ -1,19 +1,19 @@
 version: '3.1'
 
 services:
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - MONGODB_URI=mongodb://mongoadmin:secret@mongodb:27017/paytmdb?authSource=admin
-    depends_on:
-      - mongodb
-    networks:
-      - backend-network
+  # backend:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - NODE_ENV=production
+  #     - MONGODB_URI=mongodb://mongoadmin:secret@mongodb:27017/paytmdb?authSource=admin
+  #   depends_on:
+  #     - mongodb
+  #   networks:
+  #     - backend-network
 
   mongodb:
     build:

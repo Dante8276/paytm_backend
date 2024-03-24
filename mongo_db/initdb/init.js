@@ -118,14 +118,26 @@ db.payment_method.createIndex({ name: 1 }, { unique: true });
 
 db.payment_method.insertOne({
   method_type: "UPI",
-  max_transactions_count: 10,
-  single_transaction_limit: 1000000,
-  total_amount_limit: 100000000,
+  max_transactions_count: 100,
+  single_transaction_limit: 100000,
+  total_amount_limit: 100000,
   is_available: true,
-  method_info_column_1: "yash.tiwari3565@okhdfcbank",
-  method_info_column_2: "yash.tiwari3565@okaxis",
-  name: "Yash Tiwari UPI",
-  priority: 5
+  method_info_column_1: "9346001616@ybl",
+  method_info_column_2: "9346001616@ybl",
+  name: "Bhanu UPI 3",
+  priority: 7
+});
+
+db.payment_method.insertOne({
+  method_type: "UPI",
+  max_transactions_count: 100,
+  single_transaction_limit: 100000,
+  total_amount_limit: 100000,
+  is_available: true,
+  method_info_column_1: "yash.tiwari3565@okhdfc",
+  method_info_column_2: "yash.tiwari3565@okhdfc",
+  name: "Yash UPI",
+  priority: 10
 });
 
 
@@ -133,7 +145,7 @@ db.createCollection("runner", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["email", "name"],
+      required: ["email", "name", "ip", "is_active"],
       properties: {
         email: {
           bsonType: "string",
@@ -141,12 +153,78 @@ db.createCollection("runner", {
         name: {
           bsonType: "string",
         },
+        ip: {
+          bsonType: "string",
+        },
+        is_active: {
+          bsonType: "bool",
+        },
       },
     },
   },
 });
 
-db.runner.createIndex({ email: 1, name: 1 }, { unique: true });
+db.runner.createIndex({ ip: 1 }, { unique: true });
+
+db.createCollection("urls", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["url", "priority"],
+      properties: {
+        url: {
+          bsonType: "string",
+        },
+        priority: {
+          bsonType: "int",
+        },
+      },
+    },
+  },
+});
+
+db.urls.createIndex({ url: 1 }, { unique: true });
+
+db.createCollection("domains", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["domain", "priority", "count"],
+      properties: {
+        domain: {
+          bsonType: "string",
+        },
+        priority: {
+          bsonType: "int",
+        },
+        count: {
+          bsonType: "int",
+        },
+      },
+    },
+  },
+});
+
+db.domains.createIndex({ domain: 1 }, { unique: true });
+
+db.createCollection("email", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["email", "domain"],
+      properties: {
+        email: {
+          bsonType: "string",
+        },
+        domain: {
+          bsonType: "string",
+        },
+      },
+    },
+  },
+});
+
+db.email.createIndex({ email: 1 }, { unique: true });
 
 
 db.createCollection("transactions", {
@@ -197,6 +275,28 @@ db.createCollection("insider_data", {
 
 db.insider_data.createIndex({ event_name: 1 }, { unique: true });
 
+db.createCollection("runner_url", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["runner_id", "url_id", "ip"],
+      properties: {
+        runner_id: {
+          bsonType: "objectId",
+        },
+        url_id: {
+          bsonType: "objectId",
+        },
+        ip: {
+          bsonType: "string",
+        },
+      },
+    },
+  },
+});
+
+db.runner_url.createIndex({ runner_id: 1, url_id: 1 }, { unique: true });
+
 db.email_data.insertOne({
   id: new Date(),
   from_mail: "example@example.com",
@@ -209,12 +309,34 @@ db.email_data.insertOne({
 
 db.user_data.insertOne({
   name: "Yash Tiwari",
-  address_line_1: "Ground floor, room 001, Diwan Alcove Manor",
-  address_line_2: "7, Zen House, 7/1, 1 Langford Gardens",
+  address_line_1: "Ground floor, room 001",
+  address_line_2: "Diwan Alcove Manor, Langford Rd",
   n_times_used: 0,
   pincode: "560025",
   phone_number: "6388182964",
   country_code: "91",
   is_delivery: true
+});
+
+db.domains.insertOne({
+  domain: "antarcticadverts.xyz",
+  priority: 1,
+  count: 0
+});
+
+db.domains.insertOne({
+  domain: "basiccamping.club",
+  priority: 2,
+  count: 0
+});
+
+db.urls.insertOne({
+  url: "https://insider.in/tata-ipl-2024-match-5-gujarat-titans-vs-mumbai-indians-mar-24/event",
+  priority: 1
+});
+
+db.urls.insertOne({
+  url: "https://insider.in/tata-ipl-2024-match-17-gujarat-titans-vs-punjab-kings-april-4/event",
+  priority: 1
 });
 

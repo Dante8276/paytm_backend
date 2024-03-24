@@ -156,7 +156,7 @@ db.createCollection("runner", {
   validator: {
     \$jsonSchema: {
       bsonType: "object",
-      required: ["email", "name"],
+      required: ["email", "name", "ip", "is_active"],
       properties: {
         email: {
           bsonType: "string",
@@ -164,12 +164,78 @@ db.createCollection("runner", {
         name: {
           bsonType: "string",
         },
+        ip: {
+          bsonType: "string",
+        },
+        is_active: {
+          bsonType: "bool",
+        },
       },
     },
   },
 });
 
-db.runner.createIndex({ email: 1, name: 1 }, { unique: true });
+db.runner.createIndex({ ip: 1 }, { unique: true });
+
+db.createCollection("urls", {
+  validator: {
+    \$jsonSchema: {
+      bsonType: "object",
+      required: ["url", "priority"],
+      properties: {
+        url: {
+          bsonType: "string",
+        },
+        priority: {
+          bsonType: "int",
+        },
+      },
+    },
+  },
+});
+
+db.urls.createIndex({ url: 1 }, { unique: true });
+
+db.createCollection("domains", {
+  validator: {
+    \$jsonSchema: {
+      bsonType: "object",
+      required: ["domain", "priority", "count"],
+      properties: {
+        domain: {
+          bsonType: "string",
+        },
+        priority: {
+          bsonType: "int",
+        },
+        count: {
+          bsonType: "int",
+        },
+      },
+    },
+  },
+});
+
+db.domains.createIndex({ domain: 1 }, { unique: true });
+
+db.createCollection("email", {
+  validator: {
+    \$jsonSchema: {
+      bsonType: "object",
+      required: ["email", "domain"],
+      properties: {
+        email: {
+          bsonType: "string",
+        },
+        domain: {
+          bsonType: "string",
+        },
+      },
+    },
+  },
+});
+
+db.email.createIndex({ email: 1 }, { unique: true });
 
 
 db.createCollection("transactions", {
@@ -220,6 +286,28 @@ db.createCollection("insider_data", {
 
 db.insider_data.createIndex({ event_name: 1 }, { unique: true });
 
+db.createCollection("runner_url", {
+  validator: {
+    \$jsonSchema: {
+      bsonType: "object",
+      required: ["runner_id", "url_id", "ip"],
+      properties: {
+        runner_id: {
+          bsonType: "objectId",
+        },
+        url_id: {
+          bsonType: "objectId",
+        },
+        ip: {
+          bsonType: "string",
+        },
+      },
+    },
+  },
+});
+
+db.runner_url.createIndex({ runner_id: 1, url_id: 1 }, { unique: true });
+
 db.email_data.insertOne({
   id: new Date(),
   from_mail: "example@example.com",
@@ -239,6 +327,28 @@ db.user_data.insertOne({
   phone_number: "6388182964",
   country_code: "91",
   is_delivery: true
+});
+
+db.domains.insertOne({
+  domain: "antarcticadverts.xyz",
+  priority: 1,
+  count: 0
+});
+
+db.domains.insertOne({
+  domain: "basiccamping.club",
+  priority: 2,
+  count: 0
+});
+
+db.urls.insertOne({
+  url: "https://insider.in/tata-ipl-2024-match-5-gujarat-titans-vs-mumbai-indians-mar-24/event",
+  priority: 1
+});
+
+db.urls.insertOne({
+  url: "https://insider.in/tata-ipl-2024-match-17-gujarat-titans-vs-punjab-kings-april-4/event",
+  priority: 1
 });
 
 EOT
